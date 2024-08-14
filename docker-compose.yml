@@ -1,0 +1,17 @@
+# docker-composer.yml
+version: '3.1' # Define la versión de la sintaxis de docker-compose que se está utilizando.
+
+services:             #Esta sección define los diferentes servicios (contenedores
+  joselow_db: 
+    image: mysql:5.7  # Especifica la imagen Docker que se usará para crear el contenedo
+    volumes:          # Define los volúmenes que se montarán en el contenedor. Los
+      - ./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+    command: --init-file /docker-entrypoint-initdb.d/init.sql
+    ports: 
+      - '3312:3306'
+    environment:      # Define variables de entorno que se pasarán al contenedor
+      MYSQL_DATABASE: 'joselow_db'
+      MYSQL_ROOT_USER: 'joselow'
+      MYSQL_ROOT_PASSWORD: 'secret_password'
+      MYSQL_USER: 'joselow'
+      MYSQL_PASSWORD: 'secret_password'
