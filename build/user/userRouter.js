@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserRouter = void 0;
-const userController_1 = require("../user/controllers/userController");
-const router_1 = require("./router");
+const userController_1 = require("./controllers/userController");
+const router_1 = require("../router/router");
 class UserRouter extends router_1.BaseRouter {
     constructor() {
         super(userController_1.UserController);

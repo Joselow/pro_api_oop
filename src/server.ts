@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import morgan from "morgan";
 import type { Router, Application } from "express";
-import { UserRouter } from "./router/userRouter";
+import { UserRouter } from "./user/userRouter";
 import { ConfigServer } from "./config/config";
 import { DataSource } from "typeorm";
 

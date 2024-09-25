@@ -38,7 +38,7 @@ class ConfigServer {
             username: this.getEnviroment('DB_USERNAME'),
             password: this.getEnviroment('DB_PASSWORD'),
             database: this.getEnviroment('DB_DATABASE'),
-            entities: [node_path_1.default.join(__dirname, '..', 'entities', '*.entity{.ts,.js}')],
+            entities: [node_path_1.default.join(__dirname, '..', '**', '*.entity{.ts,.js}')],
             migrations: [node_path_1.default.join(__dirname, '..', '..', 'migrations', '*{.ts, .js}')],
             synchronize: true,
             logging: false,
