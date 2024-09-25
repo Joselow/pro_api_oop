@@ -9,41 +9,31 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserEntity = void 0;
+exports.PurchaseEntity = void 0;
 const typeorm_1 = require("typeorm");
 const base_entity_1 = require("../../config/base.entity");
 const customer_entity_1 = require("../../customer/entities/customer.entity");
-let UserEntity = class UserEntity extends base_entity_1.BaseEntity {
+const purchaseToProduct_entity_1 = require("../../puchaseToProduct/entities/purchaseToProduct.entity");
+let PurchaseEntity = class PurchaseEntity extends base_entity_1.BaseEntity {
 };
-exports.UserEntity = UserEntity;
+exports.PurchaseEntity = PurchaseEntity;
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], UserEntity.prototype, "name", void 0);
+], PurchaseEntity.prototype, "paymentMethod", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], UserEntity.prototype, "lastName", void 0);
+], PurchaseEntity.prototype, "status", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ nullable: false }),
-    __metadata("design:type", String)
-], UserEntity.prototype, "email", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ nullable: false }),
-    __metadata("design:type", String)
-], UserEntity.prototype, "password", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ nullable: false }),
-    __metadata("design:type", String)
-], UserEntity.prototype, "city", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], UserEntity.prototype, "province", void 0);
-__decorate([
-    (0, typeorm_1.OneToOne)(() => customer_entity_1.CustomerEntity, (customer) => customer.user),
+    (0, typeorm_1.ManyToOne)(() => customer_entity_1.CustomerEntity, (customer) => customer.purchases),
+    (0, typeorm_1.JoinColumn)({ name: 'customer_id' }),
     __metadata("design:type", customer_entity_1.CustomerEntity)
-], UserEntity.prototype, "customer", void 0);
-exports.UserEntity = UserEntity = __decorate([
-    (0, typeorm_1.Entity)({ name: 'users' })
-], UserEntity);
+], PurchaseEntity.prototype, "customer", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => purchaseToProduct_entity_1.PurchaseToProduct, ({ purchase }) => purchase),
+    __metadata("design:type", Array)
+], PurchaseEntity.prototype, "purchaseToProducts", void 0);
+exports.PurchaseEntity = PurchaseEntity = __decorate([
+    (0, typeorm_1.Entity)({ name: 'purchases' })
+], PurchaseEntity);
