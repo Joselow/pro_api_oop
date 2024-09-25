@@ -13,15 +13,18 @@ class ServerBootstrap extends ConfigServer {
   constructor () {
     super()
 
-    this.app.use(express.json())
-    this.app.use(express.urlencoded({ extended: true }))
-    this.app.use(morgan('dev'))
-    this.app.use(cors())
-
+    this.startNecesaryMidlewares()
     this.app.use('/api', this.routes())
     this.listen()
 
     this.dbConnect()
+  }
+
+  public startNecesaryMidlewares() {
+    this.app.use(express.json())
+    this.app.use(express.urlencoded({ extended: true }))
+    this.app.use(morgan('dev'))
+    this.app.use(cors())
   }
 
   public routes (): Router [] {

@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ConfigServer = void 0;
 const dotenv_1 = __importDefault(require("dotenv"));
+const node_path_1 = __importDefault(require("node:path"));
 const typeorm_naming_strategies_1 = require("typeorm-naming-strategies");
 class ConfigServer {
     constructor() {
@@ -37,10 +38,10 @@ class ConfigServer {
             username: this.getEnviroment('DB_USERNAME'),
             password: this.getEnviroment('DB_PASSWORD'),
             database: this.getEnviroment('DB_DATABASE'),
-            entities: [__dirname + '/../**/*.entity{.ts, .js}'],
-            migrations: [__dirname + '/../../migrations/*{.ts, .js}'],
+            entities: [node_path_1.default.join(__dirname, '..', 'entities', '*.entity{.ts,.js}')],
+            migrations: [node_path_1.default.join(__dirname, '..', '..', 'migrations', '*{.ts, .js}')],
             synchronize: true,
-            logging: true,
+            logging: false,
             namingStrategy: new typeorm_naming_strategies_1.SnakeNamingStrategy(),
         };
     }
