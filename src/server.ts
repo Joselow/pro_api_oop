@@ -4,7 +4,6 @@ import morgan from "morgan";
 import type { Router, Application } from "express";
 import { UserRouter } from "./user/userRouter";
 import { ConfigServer } from "./config/config";
-import { DataSource } from "typeorm";
 
 class ServerBootstrap extends ConfigServer {
   public app: Application = express();
@@ -37,14 +36,6 @@ class ServerBootstrap extends ConfigServer {
     this.app.listen(this.port, () => {      
       console.log(`listening on http://localhost:${this.port}`)
     });
-  }
-  async dbConnect () {
-    try {
-      await new DataSource(this.typeORMConfig).initialize();
-      console.log("Data Source has been initialized!")
-    } catch (err) {
-      console.error("Error during Data Source initialization", err)
-    }
   }
 }
 

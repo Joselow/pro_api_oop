@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
 import path from 'node:path';
+import { DataSource } from "typeorm";
 
 import { type DataSourceOptions } from 'typeorm';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
@@ -47,6 +48,17 @@ export abstract class ConfigServer {
       synchronize: true,
       logging: false,
       namingStrategy: new SnakeNamingStrategy(), 
+    }
+  }
+
+  async dbConnect (): Promise<DataSource> {
+    try {
+      const dataSource = await new DataSource(this.typeORMConfig).initialize();
+      console.log("Data Source has been initialized!")
+      return dataSource
+    } catch (err) {
+      console.error("Error during Data Source initialization", err)
+      throw Error("Error during Data Source initialization")
     }
   }
 }

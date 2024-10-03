@@ -2,7 +2,7 @@ import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColum
 import { BaseEntity } from "../../config/base.entity";
 import { CategoryEntity } from "../../category/entities/category.entity";
 import { PurchaseEntity } from "../../purchase/entities/purchase.entity";
-import { PurchaseToProduct } from "../../puchaseToProduct/entities/purchaseToProduct.entity";
+import { PurchaseToProduct } from "../../purchase/entities/purchaseToProduct.entity";
 
 @Entity({ name: 'products' })
 export class ProductEntity extends BaseEntity {
