@@ -41,6 +41,18 @@ __decorate([
     __metadata("design:type", String)
 ], UserEntity.prototype, "province", void 0);
 __decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], UserEntity.prototype, "username", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ nullable: true }),
+    __metadata("design:type", String)
+], UserEntity.prototype, "position", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: 'int', nullable: false }),
+    __metadata("design:type", Number)
+], UserEntity.prototype, "phoneNumber", void 0);
+__decorate([
     (0, typeorm_1.OneToOne)(() => customer_entity_1.CustomerEntity, (customer) => customer.user),
     __metadata("design:type", customer_entity_1.CustomerEntity)
 ], UserEntity.prototype, "customer", void 0);

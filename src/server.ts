@@ -16,7 +16,7 @@ class ServerBootstrap extends ConfigServer {
     this.app.use('/api', this.routes())
     this.listen()
 
-    this.dbConnect()
+    // this.dbConnect()
   }
 
   public startNecesaryMidlewares() {

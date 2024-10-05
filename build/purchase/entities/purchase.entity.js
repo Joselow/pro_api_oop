@@ -13,7 +13,7 @@ exports.PurchaseEntity = void 0;
 const typeorm_1 = require("typeorm");
 const base_entity_1 = require("../../config/base.entity");
 const customer_entity_1 = require("../../customer/entities/customer.entity");
-const purchaseToProduct_entity_1 = require("../../puchaseToProduct/entities/purchaseToProduct.entity");
+const purchaseToProduct_entity_1 = require("./purchaseToProduct.entity");
 let PurchaseEntity = class PurchaseEntity extends base_entity_1.BaseEntity {
 };
 exports.PurchaseEntity = PurchaseEntity;

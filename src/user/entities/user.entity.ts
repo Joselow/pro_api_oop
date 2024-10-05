@@ -22,6 +22,14 @@ export class UserEntity extends BaseEntity {
   @Column()
   province!: string
 
+  @Column()
+  username!: string; 
+
+  @Column({ nullable: true })
+  position?: string; 
+  @Column({ type: 'int', nullable: false })
+  phoneNumber!: number;
+
   @OneToOne(() => CustomerEntity, (customer) => customer.user)
   customer!: CustomerEntity
 } 
