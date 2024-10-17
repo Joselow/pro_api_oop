@@ -1,74 +1,41 @@
-import type { Response, Request } from "express";
+import type { Response, Request, NextFunction } from "express";
 import { UserService } from "../service/userService";
+import { catchFunctions } from "../../utils/catchFunctions";
+import { success } from "../../utils/responses";
 
 export class UserController {
   constructor(
-    private readonly userService: UserService = new UserService()
+    private readonly userService: UserService = new UserService(),
   ) {}
+  
+  getUsers = catchFunctions(async (req: Request, res: Response) => {
+    const users = await this.userService.getUsers()
+    success(res, 200, users)
+  })
 
-  async getUser(req: Request, res: Response) {
-    try {
-      const users = await this.userService.getUsers()
-      res.status(200).json(users)
-    } catch (error) {
-      res.status(500).json({
-        message: 'algo salió mal',
-        success: false
-      })
-    }
-  }
-
-  async getUserById(req: Request, res: Response) {
+  getUserById = catchFunctions(async (req: Request, res: Response) => {
     const { id } = req.params
 
-    try {
-      const deleted = await this.userService.getUserById(id)
-      res.status(200).json(deleted)
-    } catch (error) {
-      res.status(500).json({
-        message: 'algo salió mal',
-        success: false
-      })
-    }
-  }
+    const deleted = await this.userService.getUserById(id)
+    success(res, 200, deleted)
+  })
 
-  province!: string
-  async createUser(req: Request, res: Response) {
-    // const { name, lastName, email, password, city, province } = req.body
-    try {
-      const user = await this.userService.createUser(req.body)
-      res.status(200).json(user)
-    } catch (error) {
-      console.log(error)
-      res.status(500).json({
-        message: 'algo salió mal',
-        success: false
-      })
-    }
-  }
-  async updateUser(req: Request, res: Response) {
+  createUser = catchFunctions(async (req: Request, res: Response) => {
+    const user = await this.userService.createUser(req.body)
+    success(res, 200, user)
+  })
+
+  updateUser = catchFunctions(async (req: Request, res: Response) => {
     const { id } = req.params
 
-    try {
-      const user = await this.userService.updateUser(id, req.body)
-      res.status(200).json(user)
-    } catch (error) {
-      res.status(500).json({
-        message: 'algo salió mal',
-        success: false
-      })
-    }
-  }
-  async deleteUser(req: Request, res: Response) {
+    const user = await this.userService.updateUser(id, req.body)
+    success(res, 200, user)
+  })
+
+  deleteUser = catchFunctions(async (req: Request, res: Response) => {
     const { id } = req.params
-    try {
-      const users = await this.userService.deleteUser(id)
-      res.status(200).json(users)
-    } catch (error) {
-      res.status(500).json({
-        message: 'algo salió mal',
-        success: false
-      })
-    }
-  }
+
+    const user = await this.userService.deleteUser(id)
+    success(res, 200, user)
+  })
 }

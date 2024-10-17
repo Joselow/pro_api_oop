@@ -15,6 +15,7 @@ class ServerBootstrap extends config_1.ConfigServer {
         this.port = this.getNumberEnv('PORT');
         this.startNecesaryMidlewares();
         this.app.use('/api', this.routes());
+        this.manageErrors();
         this.listen();
         // this.dbConnect()
     }
@@ -28,6 +29,17 @@ class ServerBootstrap extends config_1.ConfigServer {
         return [
             new userRouter_1.UserRouter().router
         ];
+    }
+    manageErrors() {
+        this.app.use((err, req, res, next) => {
+            const statusCode = err.statusCode || 500;
+            return res.status(statusCode).json({
+                success: false,
+                message: err.message,
+                errors: err.errors,
+                status: statusCode
+            });
+        });
     }
     listen() {
         this.app.listen(this.port, () => {
