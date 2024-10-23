@@ -1,15 +1,21 @@
 import dotenv from 'dotenv';
 import path from 'node:path';
+import { DataSource } from "typeorm";
 
 import { type DataSourceOptions } from 'typeorm';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
+import { dbConnect } from './database';
 
-export abstract class ConfigServer {
+export class ConfigServer {
   constructor(){
     const nodeNameEnv = this.createPathEnv(this.nodeEnv)    
     dotenv.config({
       path: nodeNameEnv
     })
+  }
+
+  public async dbInit() {
+    await dbConnect()
   }
 
   public get nodeEnv(): string {
@@ -42,7 +48,7 @@ export abstract class ConfigServer {
       username: this.getEnviroment('DB_USERNAME'),
       password: this.getEnviroment('DB_PASSWORD'),
       database: this.getEnviroment('DB_DATABASE'),
-      entities: [ path.join(__dirname, '..', 'entities', '*.entity{.ts,.js}')],
+      entities: [ path.join(__dirname, '..', '**', '*.entity{.ts,.js}')],
       migrations: [path.join(__dirname,'..','..','migrations','*{.ts, .js}')],
       synchronize: true,
       logging: false,
