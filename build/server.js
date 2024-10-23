@@ -8,11 +8,14 @@ const cors_1 = __importDefault(require("cors"));
 const morgan_1 = __importDefault(require("morgan"));
 const userRouter_1 = require("./user/userRouter");
 const config_1 = require("./config/config");
+const responses_1 = require("./utils/responses");
+const productRouter_1 = require("./product/productRouter");
 class ServerBootstrap extends config_1.ConfigServer {
     constructor() {
         super();
         this.app = (0, express_1.default)();
         this.port = this.getNumberEnv('PORT');
+        this.dbInit();
         this.startNecesaryMidlewares();
         this.app.use('/api', this.routes());
         this.manageErrors();
@@ -27,18 +30,14 @@ class ServerBootstrap extends config_1.ConfigServer {
     }
     routes() {
         return [
-            new userRouter_1.UserRouter().router
+            new userRouter_1.UserRouter().router,
+            new productRouter_1.ProductRouter().router
         ];
     }
     manageErrors() {
         this.app.use((err, req, res, next) => {
-            const statusCode = err.statusCode || 500;
-            return res.status(statusCode).json({
-                success: false,
-                message: err.message,
-                errors: err.errors,
-                status: statusCode
-            });
+            const { statusCode = 500, message, errors = null } = err;
+            (0, responses_1.error)(res, statusCode, message, errors);
         });
     }
     listen() {

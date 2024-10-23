@@ -20,14 +20,17 @@ class BaseEntity {
 }
 exports.BaseEntity = BaseEntity;
 __decorate([
-    (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
+    (0, typeorm_1.PrimaryGeneratedColumn)('uuid') //  creaa el campo auto
+    ,
     __metadata("design:type", Object)
 ], BaseEntity.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.CreateDateColumn)({ name: 'created_at', type: 'timestamp' }),
+    (0, typeorm_1.CreateDateColumn)({ name: 'created_at', type: 'timestamp' }) //  creaa el campo auto
+    ,
     __metadata("design:type", Object)
 ], BaseEntity.prototype, "createAt", void 0);
 __decorate([
-    (0, typeorm_1.CreateDateColumn)({ name: 'updated_at', type: 'timestamp' }),
+    (0, typeorm_1.UpdateDateColumn)({ name: 'updated_at', type: 'timestamp' }) //  actualiza el campo auto
+    ,
     __metadata("design:type", Object)
 ], BaseEntity.prototype, "updateAt", void 0);

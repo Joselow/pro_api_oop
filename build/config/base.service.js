@@ -10,24 +10,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BaseService = void 0;
-const config_1 = require("./config");
-class BaseService extends config_1.ConfigServer {
+const database_1 = require("./database");
+class BaseService {
     constructor(entity) {
-        super();
         this.entity = entity;
         this.initializeRepository();
     }
     initializeRepository() {
         return __awaiter(this, void 0, void 0, function* () {
-            this.repository = yield this.initRepository(this.entity);
-        });
-    }
-    initRepository(entity) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const dataSource = yield this.dbConnect();
-            console.log('conectado a la base de datos');
-            console.count();
-            return dataSource.getRepository(entity);
+            this.repository = database_1.dataSource.getRepository(this.entity);
         });
     }
 }

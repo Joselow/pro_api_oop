@@ -1,22 +1,18 @@
+import { IsNotEmpty } from "class-validator";
+
 import { BaseDTO } from "../../config/base.dto";
 
 export class ProductDTO extends BaseDTO {
-  // @IsNotEmpty()
-  // name!: string
+  @IsNotEmpty()
+  name!: string
 
-  // @IsNotEmpty()
-  // lastName!: string
+  @IsNotEmpty()
 
-  // @IsNotEmpty()
-  // email!: string
+  description!: string
 
-  // @Exclude()
-  // @IsNotEmpty()
-  // password!: string
+  @IsNotEmpty()
+  price!: number
 
-  // @IsNotEmpty()
-  // city!: string
-
-  // @IsNotEmpty()
-  // province!: string
+  @IsNotEmpty()
+  categoryId!: string
 }

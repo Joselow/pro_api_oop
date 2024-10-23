@@ -15,13 +15,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ConfigServer = void 0;
 const dotenv_1 = __importDefault(require("dotenv"));
 const node_path_1 = __importDefault(require("node:path"));
-const typeorm_1 = require("typeorm");
 const typeorm_naming_strategies_1 = require("typeorm-naming-strategies");
+const database_1 = require("./database");
 class ConfigServer {
     constructor() {
         const nodeNameEnv = this.createPathEnv(this.nodeEnv);
         dotenv_1.default.config({
             path: nodeNameEnv
+        });
+    }
+    dbInit() {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield (0, database_1.dbConnect)();
         });
     }
     get nodeEnv() {
@@ -54,19 +59,6 @@ class ConfigServer {
             logging: false,
             namingStrategy: new typeorm_naming_strategies_1.SnakeNamingStrategy(),
         };
-    }
-    dbConnect() {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const dataSource = yield new typeorm_1.DataSource(this.typeORMConfig).initialize();
-                console.log("Data Source has been initialized!");
-                return dataSource;
-            }
-            catch (err) {
-                console.error("Error during Data Source initialization", err);
-                throw Error("Error during Data Source initialization");
-            }
-        });
     }
 }
 exports.ConfigServer = ConfigServer;

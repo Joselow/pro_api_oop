@@ -4,6 +4,8 @@ import morgan from "morgan";
 import { UserRouter } from "./user/userRouter";
 import { ConfigServer } from "./config/config";
 import type { Router, Application, Request, Response, NextFunction, } from "express";
+import { error } from "./utils/responses";
+import { ProductRouter } from "./product/productRouter";
 
 class ServerBootstrap extends ConfigServer {
   public app: Application = express();
@@ -12,6 +14,7 @@ class ServerBootstrap extends ConfigServer {
   constructor () {
     super()
 
+    this.dbInit()
     this.startNecesaryMidlewares()
     this.app.use('/api', this.routes())
     this.manageErrors()
@@ -28,19 +31,15 @@ class ServerBootstrap extends ConfigServer {
 
   public routes (): Router [] {
     return [
-      new UserRouter().router
+      new UserRouter().router,
+      new ProductRouter().router
     ]
   }
 
   public manageErrors () {
     this.app.use((err: any, req: Request, res: Response, next: NextFunction) => {
-      const statusCode = err.statusCode || 500
-      return res.status(statusCode).json({
-        success: false,
-        message: err.message,
-        errors: err.errors,
-        status: statusCode
-      })
+      const { statusCode = 500, message, errors = null} = err
+      error(res, statusCode, message, errors )
     })
   }
 

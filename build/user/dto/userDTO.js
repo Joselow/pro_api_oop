@@ -41,3 +41,15 @@ __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], UserDTO.prototype, "province", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
+], UserDTO.prototype, "username", void 0);
+__decorate([
+    (0, class_validator_1.IsEmpty)(),
+    __metadata("design:type", String)
+], UserDTO.prototype, "position", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", Number)
+], UserDTO.prototype, "phoneNumber", void 0);

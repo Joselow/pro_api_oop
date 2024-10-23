@@ -1,5 +1,5 @@
 import type { Response, Request, NextFunction } from "express";
-import { UserService } from "../service/userService";
+import { UserService } from "../services/userService";
 import { catchFunctions } from "../../utils/catchFunctions";
 import { success } from "../../utils/responses";
 
