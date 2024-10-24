@@ -3,6 +3,7 @@ import { ProductService } from "../services/productService";
 
 import { success } from "../../utils/responses";
 import { catchFunctions } from "../../utils/catchFunctions";
+import { NotFoundError } from "../../errors/NotFoundError";
 
 export class ProductController {
   constructor(
@@ -16,13 +17,16 @@ export class ProductController {
 
     getProductByID = catchFunctions(async(req: Request, res: Response) => {
       const { id } = req.params
-      const deleted = await this.productService.getProductById(id)
-      success(res, 200, deleted)
+      const product = await this.productService.getProductById(id)
+
+      if (!product) {
+        throw new NotFoundError('product not found',)
+      }
+
+      success(res, 200, product)
     })
 
-    createProduct = catchFunctions(async (req: Request, res: Response) => {
-      console.log('me llegó');
-      
+    createProduct = catchFunctions(async (req: Request, res: Response) => {      
       const product = await this.productService.createProduct(req.body)
       success(res, 200, product)
     })
