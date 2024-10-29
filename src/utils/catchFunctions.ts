@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 
-export const catchFunctions = (fn: (req: Request, res: Response) => Promise<any>) => {
+export const catchFunctions = (fn: (req: Request, res: Response, next?: NextFunction) => Promise<any>) => {
   return (req: Request, res: Response, next: NextFunction) => {
     fn(req, res).catch((err: unknown) => {    
       console.error(err)  

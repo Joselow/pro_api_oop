@@ -1,3 +1,4 @@
+import "reflect-metadata"
 import express from "express";
 import cors from "cors";
 import morgan from "morgan";
@@ -19,7 +20,6 @@ class ServerBootstrap extends ConfigServer {
     this.app.use('/api', this.routes())
     this.manageErrors()
     this.listen()
-    // this.dbConnect()
   }
 
   public startNecesaryMidlewares() {
@@ -38,6 +38,7 @@ class ServerBootstrap extends ConfigServer {
 
   public manageErrors () {
     this.app.use((err: any, req: Request, res: Response, next: NextFunction) => {
+      console.log('Error atrapado correctamente');
       const { statusCode = 500, message, errors = null} = err
       error(res, statusCode, message, errors )
     })

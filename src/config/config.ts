@@ -49,8 +49,9 @@ export class ConfigServer {
       password: this.getEnviroment('DB_PASSWORD'),
       database: this.getEnviroment('DB_DATABASE'),
       entities: [ path.join(__dirname, '..', '**', '*.entity{.ts,.js}')],
-      migrations: [path.join(__dirname,'..','..','migrations','*{.ts, .js}')],
-      synchronize: true,
+      migrations: [path.join(__dirname,'..','migrations','*{.ts, .js}')],
+      synchronize: false,
+      // migrationsRun: true,   // para que las migracione spendientes se ejcuten cuando inicie la app
       logging: false,
       namingStrategy: new SnakeNamingStrategy(), 
     }
