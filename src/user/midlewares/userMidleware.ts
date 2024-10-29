@@ -18,6 +18,8 @@ export class UserMidleware {
       const error = new ClientError('The data provided is invalid', 400, mapErrors(errors));
       return next(error)
     } 
+    
+    req.body = user;
 
     next()
   }
